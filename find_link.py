@@ -45,7 +45,6 @@ def main(bed_file, max_dist=87000):
                 pollen_by_chrom[chrom].append((start, end, gene_id, stripped))
             gene_to_line[gene_id] = stripped
 
-    # 构建全局 Style/Pollen 基因集合（用于快速判断）
     all_style_genes = set(gid for chrom in style_by_chrom.values() for _, _, gid, _ in chrom)
     all_pollen_genes = set(gid for chrom in pollen_by_chrom.values() for _, _, gid, _ in chrom)
 
@@ -65,20 +64,17 @@ def main(bed_file, max_dist=87000):
         for _, _, gid, _ in pollens:
             all_genes.add(gid)
 
-        # 建立 Style-Pollen 连接
         for s_start, s_end, s_id, _ in styles:
             for p_start, p_end, p_id, _ in pollens:
                 dist = interval_distance(s_start, s_end, p_start, p_end)
                 if dist <= max_dist:
                     uf.union(s_id, p_id)
 
-        # 构建连通分量
         components = defaultdict(list)
         for gene in all_genes:
             root = uf.find(gene)
             components[root].append(gene)
 
-        # 收集有效 cluster 并计算最小 start
         valid_clusters = []
         style_gene_set = all_style_genes
         pollen_gene_set = all_pollen_genes
@@ -96,10 +92,8 @@ def main(bed_file, max_dist=87000):
             min_start = int(lines[0].split('\t')[1])
             valid_clusters.append((min_start, lines))
 
-        # 按 cluster 的最小起始位置排序
         valid_clusters.sort(key=lambda x: x[0])
 
-        # 输出
         for min_start, lines in valid_clusters:
             if not first_cluster:
                 print("###")
