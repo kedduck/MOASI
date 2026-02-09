@@ -46,3 +46,9 @@ The workflow is designed for **haplotype-resolved assemblies** and is suitable f
 - `all_tpm` – gene expression TPM table
 
 ---
+
+## Notes on Manual Steps
+
+- **DeepTMHMM results**: manually inspect transmembrane predictions to select membrane-localized candidates.
+- **Allelic diversity analysis**: manually pair haplotype-specific alleles based on BLASTP results and sequence similarity.
+- **find_link.py**: the average intergenic length calculated above must be added as a parameter inside the script.
