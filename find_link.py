@@ -103,6 +103,6 @@ def main(bed_file, max_dist=87000):
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print("Usage: python cluster_style_pollen_pairs.py <bed_file>", file=sys.stderr)
+        print("Usage: python find_link.py <bed_file>", file=sys.stderr)
         sys.exit(1)
     main(sys.argv[1])
