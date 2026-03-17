@@ -47,7 +47,7 @@ awk '{print $0"\tPollen"}' HDR_pollen.bed > HDR_pollen_anno.bed
 awk '{print $0"\tStyle"}' HDR_style.bed > HDR_style_anno.bed
 
 
-cat HDR_pollen_anno.bed HDR_style_anno.bed | sort -k1,1 -k2,2n > HDR_anno.bed
+cat HDR_pollen_anno.bed HDR_style_anno.bed | sort -k1,1 -k2,2n | cut -f 1,2,3,4,7 > HDR_anno.bed
 
 
 bedtools merge -i hap1_gene.bed > gene.merged.bed
